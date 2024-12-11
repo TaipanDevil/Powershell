@@ -21,6 +21,6 @@ Copy-Item -Path $SPath -Destination $DPath
 
 Invoke-Command -ComputerName $RemotePC -Credential $logon -ScriptBlock {
           
-     Start-Process -FilePath msiexec.exe -ArgumentList '/i C:\Windows\Temp\ScreenConnectLaptop.msi /quiet /norestart' -Wait #stored here as windows will automatically clean these files
-
+     Start-Process -FilePath msiexec.exe -ArgumentList '/i C:\Windows\Temp\NameOfMSI.msi /quiet /norestart' -Wait #stored here as windows will automatically clean these files
+    #Start-Process -FilePath "C:\Windows\Temp\NameOfExE.exe" -ArgumentList "/QN" -Wait #this is untested for exe deployments
     }
