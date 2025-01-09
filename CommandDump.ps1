@@ -14,6 +14,8 @@ $mems | ForEach-Object{
         }
 }#>
 
+#------------------------------------------------------------------------------------------------------------------------------------------------
+
 <# #Gets the OU that the user in found in
 $CU = Get-ADUser UserName -Properties * 
 $COU = $CU.DistinguishedName -replace '^.*?,(?=[A-Z]{2}=)'
@@ -56,6 +58,8 @@ $G | ForEach-Object{
 } | Export-Csv -Path "\\path\to\the\log\csv.csv" -NoTypeInformation
 #>
 
+#---------------------------------------------------------------------------------------------------------------------------------------------------------
+
 <# #this was a test before I input it into a script to re-write a csv
 $Org = Import-Csv '\\path\to\a\user\account\csv.csv'
 
@@ -77,3 +81,35 @@ Get-ChildItem -Path "\\path\to\your\log\folder" -Recurse -Force | foreach-object
 
 Write-Host "$i"
 #>
+
+#-----------------------------------------------------------------------------------------------------------------------------
+
+<#  #Check to see who is logged into a remote computer
+
+Get-WmiObject -ComputerName 'InsertComputerNameHere' -Class Win32_ComputerSystem | Select-Object UserName
+
+Get-CimInstance –ComputerName 'InsertComputerNameHere' –ClassName Win32_ComputerSystem | Select-Object UserName
+
+
+function Get-LoggedOnUser
+ {
+     [CmdletBinding()]
+     param
+     (
+         [Parameter()]
+         [ValidateScript({ Test-Connection -ComputerName $_ -Quiet -Count 1 })]
+         [ValidateNotNullOrEmpty()]
+         [string[]]$ComputerName = $env:COMPUTERNAME
+     )
+     foreach ($comp in $ComputerName)
+     {
+         $output = @{ 'ComputerName' = $comp }
+         $output.UserName = (Get-WmiObject -Class win32_computersystem -ComputerName $comp).UserName
+         [PSCustomObject]$output
+     }
+ }
+
+ 
+#>
+
+#---------------------------------------------------------------------------------------------------------------------------------
