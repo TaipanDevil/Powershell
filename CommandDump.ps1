@@ -113,3 +113,17 @@ function Get-LoggedOnUser
 #>
 
 #---------------------------------------------------------------------------------------------------------------------------------
+
+
+#Check uptime for remote computer
+
+<#
+
+(Get-Date) - (Get-CimInstance Win32_OperatingSystem -ComputerName $computer).LastBootupTime
+
+(Get-Date) - [Management.ManagementDateTimeConverter]::ToDateTime((Get-WmiObject Win32_OperatingSystem -ComputerName $computer).LastBootUpTime)
+
+#>
+
+
+#---------------------------------------------------------------------------------------------------------------------------------
