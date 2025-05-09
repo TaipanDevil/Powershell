@@ -136,3 +136,11 @@ Get-WmiObject win32_bios | select SerialNumber
 #>
 
 #---------------------------------------------------------------------------------------------------------------------------------
+
+#Random Password Gen (5.1 only)
+<#
+Add-Type -Assembly System.Web
+$Password = [Web.Security.Membership]::GeneratePassword(14,4) | ConvertTo-SecureString -AsPlainText -Force
+#>
+
+#---------------------------------------------------------------------------------------------------------------------------------
